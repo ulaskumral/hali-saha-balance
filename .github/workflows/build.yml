@@ -28,6 +28,11 @@ jobs:
           chmod +x ./tool/bootstrap.sh
           ./tool/bootstrap.sh
 
+      - name: Fix Dependency Conflict
+        run: |
+          flutter pub add dev:test:1.31.1
+          flutter pub get
+
       - name: Build APK
         run: flutter build apk --release
 
