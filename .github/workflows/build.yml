@@ -23,15 +23,16 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Run Project Bootstrap
+      - name: Apply Dependency Override & Run Bootstrap
         run: |
+          cat << 'EOF' >> pubspec.yaml
+
+          dependency_overrides:
+            test: 1.31.1
+            test_api: 0.7.12
+          EOF
           chmod +x ./tool/bootstrap.sh
           ./tool/bootstrap.sh
-
-      - name: Fix Dependency Conflict
-        run: |
-          flutter pub add dev:test:1.31.1
-          flutter pub get
 
       - name: Build APK
         run: flutter build apk --release
